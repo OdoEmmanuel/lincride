@@ -1,10 +1,20 @@
 from django.test import TestCase
 from .logic import PricingLogic
+from .models import Pricing
+
 # Create your tests here.
 
 
 class PricingLogicTests(TestCase):
     
+    def setUp(self):
+        # Create a default pricing configuration for tests purpose
+        Pricing.objects.create(
+            base_fare=2.5,
+            per_km_rate=1.0,
+            traffic_multiplier_high=1.5,
+            demand_multiplier_peak=1.8,
+        )
     # Base fare + (Distance fare * 1) = Distance fare => Total * traffic = Total fare
 
     def test_standard_fare_calculation(self):
